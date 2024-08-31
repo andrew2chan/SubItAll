@@ -2,8 +2,7 @@ package org.andrew2chan.subitall;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -15,8 +14,16 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         stage.setTitle("SubItAll!");
+        stage.setResizable(true);
 
-        StackPane layout = new StackPane();
+        BorderPane layout = new BorderPane();
+        WebController webController = new WebController();
+        webController.loadURL("https://www.google.com");
+
+        layout.setCenter(webController.getWebView());
+
+        NavigationBarController navigationBarController = new NavigationBarController(webController);
+        layout.setTop(navigationBarController.getNavigationBox());
 
         Scene scene = new Scene(layout, WINDOW_WIDTH, WINDOW_HEIGHT);
         stage.setScene(scene);
